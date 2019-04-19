@@ -9,6 +9,8 @@ import { ConferenceComponent } from './components/conferences/conferences.compon
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material-module';
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 @NgModule({
   declarations: [
@@ -19,9 +21,11 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.serviceWorkerEnabled })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.serviceWorkerEnabled }),
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

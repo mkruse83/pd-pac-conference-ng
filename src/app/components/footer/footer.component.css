@@ -1,7 +1,22 @@
-footer {
-  text-align: center;
+.footer {
+  padding: 1em 0 1em 0;
+  border-top: 1px solid black;
+  /* max-height: 50vh; */
+  display: flex;
 }
 
-footer > hr {
-  width: 90%;
+.footer_centered {
+  justify-content: center;
+}
+
+.footer__item_small {
+  flex-grow: 1;
+}
+
+.footer__item_large {
+  flex-grow: 5;
+}
+
+.footer__image {
+  height: 1em;
 }

@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { MatMenuTrigger } from '@angular/material';
 // import {environment} from "../../../environments/environment";
 
 @Component({
@@ -8,10 +9,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor() {
   }
 
   ngOnInit() {
+    // this.trigger.openMenu();
   }
 }

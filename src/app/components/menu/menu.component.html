@@ -1,9 +1,19 @@
-<nav class="ui fixed inverted menu app-shell-menu">
-  <a class="header item" href="/">
-    <h1>Conferences</h1>
-  </a>
-
-  <a class="header item" href="/talks">
-    Talks
-  </a>
-</nav>
+<div class="menu">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>people</mat-icon>
+      <span>Conferences</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>person</mat-icon>
+      <span>Speaker</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>record_voice_over</mat-icon>
+      <span>Talks</span>
+    </button>
+  </mat-menu>
+</div>

@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  serviceWorkerEnabled: true,
+  serviceWorkerEnabled: false,
   apiBaseUrl: 'http://localhost:3001'
 };
