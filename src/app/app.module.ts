@@ -6,16 +6,22 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ConferenceComponent } from './components/conferences/conferences.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { MenuComponent } from './components/menu/menu.component';
+import { FooterComponent } from './components/footer/footer.component';
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 @NgModule({
   declarations: [
     AppComponent,
-    ConferenceComponent
+    ConferenceComponent,
+    MenuComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.serviceWorkerEnabled })
   ],
   providers: [],
   bootstrap: [AppComponent]
