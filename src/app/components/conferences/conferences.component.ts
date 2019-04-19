@@ -25,7 +25,7 @@ export class ConferenceComponent implements OnInit {
     this.years.push(new Date(Date.UTC(2017, 0, 1, 0, 0, 0, 0)));
   }
 
-  loadConferences() {
+  loadConferences(event: Event) {
     this.conferenceService.getConferencesOfYear(this.year).subscribe((result: Conferences) => {
       this.conferences = result;
     })
