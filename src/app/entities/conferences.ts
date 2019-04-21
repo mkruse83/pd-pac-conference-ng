@@ -1,0 +1,3 @@
+class Conferences {
+    conferences: Conference[];
+}

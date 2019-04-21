@@ -1,28 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConferencesService } from 'src/app/services/conferences.service';
+import { YearsService } from 'src/app/services/years.service';
 
 @Component({
   selector: 'app-claim-list',
   templateUrl: './conferences.component.html',
   styleUrls: ['./conferences.component.css']
 })
-export class ConferenceComponent implements OnInit {
+export class ConferencesComponent implements OnInit {
 
   year: Date;
   years: Date[];
   conferences: Conferences;
 
-  constructor(private conferenceService: ConferencesService) {}
+  constructor(
+    private conferenceService: ConferencesService,
+    private yearsService: YearsService,
+  ) { }
 
   ngOnInit() {
-    // this.conferenceService.getAll().subscribe(res => {
-    //   this.claims = res;
-    // })
-    this.years = [];
-    this.years.push(new Date(Date.UTC(2020, 0, 1, 0, 0, 0, 0)));
-    this.years.push(new Date(Date.UTC(2019, 0, 1, 0, 0, 0, 0)));
-    this.years.push(new Date(Date.UTC(2018, 0, 1, 0, 0, 0, 0)));
-    this.years.push(new Date(Date.UTC(2017, 0, 1, 0, 0, 0, 0)));
+    this.yearsService.getYears().subscribe((year) => {
+      this.years.push(year);
+    })
   }
 
   loadConferences(event: Event) {
@@ -30,16 +29,4 @@ export class ConferenceComponent implements OnInit {
       this.conferences = result;
     })
   }
-}
-
-class Conferences {
-  conferences: Conference[];
-}
-
-class Conference {
-  id: String;
-  name: String;
-  from: Date;
-  to: Date;
-  topics: String[];
 }

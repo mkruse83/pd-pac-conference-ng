@@ -1,0 +1,9 @@
+<mat-card>
+  <mat-card-title>
+    Welcome to PAC Conferences App.
+  </mat-card-title>
+  <mat-card-content>
+    Please use the menu in the upper left corner to view conference, talks and such.
+    Here you can retrieve Conferences for the years <span *ngFor="let year of years">{{year.getFullYear()}}&nbsp;</span>
+  </mat-card-content>
+</mat-card>
