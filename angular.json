@@ -22,13 +22,15 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.json",
-              "src/web.config"
+              "src/web.config",
+              "src/lib/lwa.js"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

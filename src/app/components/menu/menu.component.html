@@ -15,5 +15,13 @@
       <mat-icon>record_voice_over</mat-icon>
       <span>Talks</span>
     </button>
+    <button *ngIf="!loggedIn" (click)="login()" mat-menu-item>
+      <mat-icon>lock_open</mat-icon>
+      <span>Log in</span>
+    </button>
+    <button *ngIf="loggedIn" (click)="logout()" mat-menu-item>
+      <mat-icon>lock</mat-icon>
+      <span>{{name}}</span>
+    </button>
   </mat-menu>
 </div>

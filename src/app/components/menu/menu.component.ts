@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatMenuTrigger } from '@angular/material';
+import { AuthService } from 'src/app/services/auth.service';
 // import {environment} from "../../../environments/environment";
 
 @Component({
@@ -9,12 +10,28 @@ import { MatMenuTrigger } from '@angular/material';
 })
 export class MenuComponent implements OnInit {
 
+  loggedIn: boolean;
+  name: String;
+
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
-    // this.trigger.openMenu();
+    this.authService.loggedIn.subscribe((loggedIn) => {
+      this.loggedIn = loggedIn;
+      this.authService.retrieveProfile().subscribe(profile => {
+        this.name = profile.Name;
+      });
+    })
+  }
+
+  public login() {
+    this.authService.login();
+  }
+
+  public logout() {
+    this.authService.logout();
   }
 }

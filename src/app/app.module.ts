@@ -13,7 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { TalksComponent } from './components/talks/talks.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LoggedinComponent } from './components/loggedin/loggedin.component';
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +24,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     FooterComponent,
     TalksComponent,
     WelcomeComponent,
+    LoggedinComponent,
   ],
   imports: [
     BrowserModule,
