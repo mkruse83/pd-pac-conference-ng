@@ -19,6 +19,7 @@ export class ConferencesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.years = [];
     this.yearsService.getYears().subscribe((year) => {
       this.years.push(year);
     })

@@ -1,3 +1,43 @@
-<p>
-  talks works!
-</p>
+<mat-card>
+    <mat-card-title>
+      Search for talks
+    </mat-card-title>
+    <mat-card-content>
+      <div class="form__row">
+        <mat-form-field class="form__field">
+          <mat-label>Year</mat-label>
+          <mat-select [(value)]="year">
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{year.getUTCFullYear()}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form__field">
+          <mat-label>Month</mat-label>
+          <mat-select [(value)]="month">
+            <mat-option *ngFor="let month of months" [value]="month.month">
+              {{month.getDisplayValue()}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="form__field">
+          <button mat-button (click)="loadTalks($event)">Go</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf="talks" >
+    <mat-card *ngFor="let talks of talks.talks">
+      <mat-card-title>
+        {{talk.title}}
+      </mat-card-title>
+      <mat-card-content>
+        <div>
+          <span>Time: {{talk.from}} - {{talk.to}}</span>
+        </div>
+        <div *ngFor="let topic of talk.topics">
+          <span>{{talk.topic}}&nbsp;</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
