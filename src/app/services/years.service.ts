@@ -29,12 +29,12 @@ export class YearsService {
 
       this.years.forEach((year) => {
         observer.next(year);
-      })
+      });
       observer.complete();
 
       // When the consumer unsubscribes, clean up data ready for next subscription.
       return { unsubscribe() { } };
-    })
+    });
     return result;
   }
 }

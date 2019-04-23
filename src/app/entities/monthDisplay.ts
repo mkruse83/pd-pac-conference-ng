@@ -1,17 +1,17 @@
 class MonthDisplay {
     month: number;
-    displayValue: String;
+    displayValue: string;
 
-    constructor(month: number, displayValue: String) {
+    constructor(month: number, displayValue: string) {
       this.month = month;
       this.displayValue = displayValue;
     }
 
-    getDisplayValue() : String {
+    getDisplayValue(): string {
       return this.displayValue;
     }
 
-    getMonth() : number {
+    getMonth(): number {
       return this.month;
     }
   }

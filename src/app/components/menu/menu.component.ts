@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MenuComponent implements OnInit {
 
   loggedIn: boolean;
-  name: String;
+  name: string;
 
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
@@ -24,7 +24,7 @@ export class MenuComponent implements OnInit {
       this.authService.retrieveProfile().subscribe(profile => {
         this.name = profile.Name;
       });
-    })
+    });
   }
 
   public login() {

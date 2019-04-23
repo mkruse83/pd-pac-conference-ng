@@ -26,7 +26,7 @@ export class TalksComponent implements OnInit {
     this.years = [];
     this.yearsService.getYears().subscribe((year) => {
       this.years.push(year);
-    })
+    });
     this.months = [];
     for (let i = 0; i <= 11; i++) {
       const date = new Date();
@@ -41,6 +41,6 @@ export class TalksComponent implements OnInit {
     date.setMonth(this.month);
     this.talksService.getTalks(date).subscribe((result: Talks) => {
       this.talks = result;
-    })
+    });
   }
 }

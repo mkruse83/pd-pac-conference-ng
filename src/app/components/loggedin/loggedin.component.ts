@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoggedinComponent implements OnInit {
 
-  private token: String;
-  name: String;
+  private token: string;
+  name: string;
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
 

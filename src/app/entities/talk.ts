@@ -1,7 +1,7 @@
 class Talk {
-    id: String;
-    name: String;
+    id: string;
+    name: string;
     from: Date;
     to: Date;
-    topics: String[];
+    topics: string[];
   }

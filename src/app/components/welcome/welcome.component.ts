@@ -9,7 +9,7 @@ import { map, toArray } from 'rxjs/operators';
 })
 export class WelcomeComponent implements OnInit {
 
-  private years = [];
+  years = [];
 
   constructor(private yearsService: YearsService) { }
 
@@ -23,7 +23,7 @@ export class WelcomeComponent implements OnInit {
         return data;
       })).subscribe((years) => {
         this.years = years;
-      })
+      });
   }
 
 }

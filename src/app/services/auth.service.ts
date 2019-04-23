@@ -12,12 +12,12 @@ declare global {
 })
 export class AuthService {
 
-  private token: String;
+  private token: string;
   private profile: Profile;
   public loggedIn: ConnectableObservable<boolean>;
   private subscriber: Subscriber<boolean>;
 
-  constructor() { 
+  constructor() {
     const obs = new Observable<boolean>((observable) => {
       this.subscriber = observable;
     });
@@ -45,7 +45,7 @@ export class AuthService {
     this.subscriber.next(!!this.token);
   }
 
-  public retrieveProfile() : Observable<Profile> {
+  public retrieveProfile(): Observable<Profile> {
     const result = new Observable<Profile>((observer) => {
       if (this.profile) {
         observer.next(this.profile);
@@ -55,16 +55,16 @@ export class AuthService {
 
       window.amazon.Login.retrieveProfile(this.token, (profileResponse: ProfileResponse) => {
         if (!profileResponse.success) {
-          observer.error("Could not retrieve profile.");
+          observer.error('Could not retrieve profile.');
           observer.complete();
           return;
-        } 
-        
+        }
+
         observer.next(profileResponse.profile);
         observer.complete();
-      })
+      });
       return { unsubscribe() { } };
-    })
+    });
     return result;
   }
 }

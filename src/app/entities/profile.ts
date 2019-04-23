@@ -1,5 +1,5 @@
 class Profile {
-    CustomerId: String;
-    Name: String;
-    PrimaryEmail: String;
+    CustomerId: string;
+    Name: string;
+    PrimaryEmail: string;
 }

@@ -10,6 +10,6 @@ export class ConferencesService {
   constructor(private http: HttpClient) { }
 
   public getConferencesOfYear(year: Date) {
-    return this.http.get(environment.apiBaseUrl + '/conferences/' + year.getUTCFullYear())
+    return this.http.get(environment.apiBaseUrl + '/conferences/' + year.getUTCFullYear());
   }
 }

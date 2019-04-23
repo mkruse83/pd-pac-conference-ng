@@ -22,12 +22,12 @@ export class ConferencesComponent implements OnInit {
     this.years = [];
     this.yearsService.getYears().subscribe((year) => {
       this.years.push(year);
-    })
+    });
   }
 
   loadConferences(event: Event) {
     this.conferenceService.getConferencesOfYear(this.year).subscribe((result: Conferences) => {
       this.conferences = result;
-    })
+    });
   }
 }
