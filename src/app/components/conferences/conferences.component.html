@@ -1,16 +1,30 @@
 <mat-card>
   <mat-card-title>
-    Search for conferences
+    Search for conferences by year
   </mat-card-title>
   <mat-card-content>
     <mat-form-field>
       <mat-label>Year</mat-label>
-      <mat-select (selectionChange)="loadConferences($event)" [(value)]="year">
+      <mat-select [(value)]="year">
         <mat-option *ngFor="let year of years" [value]="year">
           {{year.getUTCFullYear()}}
         </mat-option>
       </mat-select>
     </mat-form-field>
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <mat-card-title>
+    Search for conferences by topic
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Topic</mat-label>
+      <input matInput placeholder="Topic" [(ngModel)]="topic" #ctrl="ngModel">
+    </mat-form-field>
+    <div class="form__field">
+      <button mat-button (click)="loadConferences($event)">Go</button>
+    </div>
   </mat-card-content>
 </mat-card>
 <div *ngIf="conferences" >

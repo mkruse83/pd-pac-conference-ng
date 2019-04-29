@@ -9,7 +9,10 @@ export class ConferencesService {
 
   constructor(private http: HttpClient) { }
 
-  public getConferencesOfYear(year: Date) {
+  public getConferencesOfYearAndTopic(year: Date, topic: string) {
+    if (topic && topic.trim() !== '') {
+      return this.http.get(environment.apiBaseUrl + '/conferences/' + year.getUTCFullYear() + '?topic=' + encodeURIComponent(topic));
+    }
     return this.http.get(environment.apiBaseUrl + '/conferences/' + year.getUTCFullYear());
   }
 }

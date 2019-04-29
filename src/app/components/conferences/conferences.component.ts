@@ -10,6 +10,7 @@ import { YearsService } from 'src/app/services/years.service';
 export class ConferencesComponent implements OnInit {
 
   year: Date;
+  topic: string;
   years: Date[];
   conferences: Conferences;
 
@@ -19,6 +20,7 @@ export class ConferencesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.topic = '';
     this.years = [];
     this.yearsService.getYears().subscribe((year) => {
       this.years.push(year);
@@ -26,7 +28,7 @@ export class ConferencesComponent implements OnInit {
   }
 
   loadConferences(event: Event) {
-    this.conferenceService.getConferencesOfYear(this.year).subscribe((result: Conferences) => {
+    this.conferenceService.getConferencesOfYearAndTopic(this.year, this.topic).subscribe((result: Conferences) => {
       this.conferences = result;
     });
   }

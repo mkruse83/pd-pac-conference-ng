@@ -14,6 +14,8 @@ import { MaterialModule } from './material-module';
 import { TalksComponent } from './components/talks/talks.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoggedinComponent } from './components/loggedin/loggedin.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
 @NgModule({
@@ -29,6 +31,8 @@ import { LoggedinComponent } from './components/loggedin/loggedin.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.serviceWorkerEnabled }),
