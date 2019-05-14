@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ConferencesService } from 'src/app/services/conferences.service';
-import { YearsService } from 'src/app/services/years.service';
+import {Component, OnInit} from '@angular/core';
+import {ConferencesService} from 'src/app/services/conferences.service';
+import {YearsService} from 'src/app/services/years.service';
 
 @Component({
   selector: 'app-claim-list',
@@ -17,7 +17,8 @@ export class ConferencesComponent implements OnInit {
   constructor(
     private conferenceService: ConferencesService,
     private yearsService: YearsService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.topic = '';
@@ -27,8 +28,17 @@ export class ConferencesComponent implements OnInit {
     });
   }
 
+  formatDate(date: Date) {
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay();
+
+  }
+
   loadConferences(event: Event) {
     this.conferenceService.getConferencesOfYearAndTopic(this.year, this.topic).subscribe((result: Conferences) => {
+      result.conferences.forEach(conf => {
+        conf.from = new Date(conf.from);
+        conf.to = new Date(conf.to);
+      });
       this.conferences = result;
     });
   }

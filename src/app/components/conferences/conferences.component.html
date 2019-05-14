@@ -34,10 +34,10 @@
     </mat-card-title>
     <mat-card-content>
       <div>
-        <span>Time: {{conference.from}} - {{conference.to}}</span>
+        <span>Time: {{formatDate(conference.from)}} - {{formatDate(conference.to)}}</span>
       </div>
       <div>
-        <button routerLink="/talk/{{conference.uuid}}" mat-menu-item>
+        <button routerLink="/talk/{{conference.id}}" mat-menu-item>
           <mat-icon>record_voice_over</mat-icon>
           <span>To Talks</span>
         </button>
