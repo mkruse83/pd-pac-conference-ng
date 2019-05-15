@@ -15,6 +15,7 @@ import { TalksComponent } from './components/talks/talks.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoggedinComponent } from './components/loggedin/loggedin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlyerComponent } from './flyer/flyer.component';
 
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
@@ -27,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TalksComponent,
     WelcomeComponent,
     LoggedinComponent,
+    FlyerComponent,
   ],
   imports: [
     BrowserModule,

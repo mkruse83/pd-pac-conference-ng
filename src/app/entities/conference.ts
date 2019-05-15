@@ -4,4 +4,6 @@ class Conference {
     from: Date;
     to: Date;
     topics: string[];
+    talks: Talk[];
+    location: ConfLocation;
   }
