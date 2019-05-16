@@ -14,8 +14,8 @@ import { MaterialModule } from './material-module';
 import { TalksComponent } from './components/talks/talks.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoggedinComponent } from './components/loggedin/loggedin.component';
+import { FlyerComponent } from './components/flyer/flyer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlyerComponent } from './flyer/flyer.component';
 
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
