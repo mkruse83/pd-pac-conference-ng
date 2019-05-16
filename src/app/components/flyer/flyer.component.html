@@ -1,0 +1,5 @@
+<div *ngIf="rooms" class="button-wrapper">
+  <span *ngFor="let room of rooms.rooms">
+      <button mat-button (click)="getFlyer($event, room.nameInLocation)">{{room.name}} | {{room.nameInLocation}}</button>  
+  </span>
+</div>
