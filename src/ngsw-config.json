@@ -23,5 +23,17 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "from-api",
+      "urls": ["/conferences", "/conference/**"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 50,
+        "maxAge": "3m",
+        "timeout": "5s"
+      }
+    }
   ]
 }
