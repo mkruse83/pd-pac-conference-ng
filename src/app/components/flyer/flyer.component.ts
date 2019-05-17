@@ -35,6 +35,7 @@ export class FlyerComponent implements OnInit {
   }
 
   getDates(event: Event, roomId: string) {
+    this.talks = null;
     this.talksService.getDatesForRoom(this.conferenceId, roomId).subscribe((result: Date[]) => {
       this.currentRoom = roomId;
       this.dates = result;
@@ -42,13 +43,6 @@ export class FlyerComponent implements OnInit {
   }
 
   getFlyer(event: Event, date: Date) {
-    // caches.keys().then((keys: string[]) => {
-    //   const apiKeys = keys.filter(key => key.includes('from-api'));
-    //   apiKeys.forEach(key => {
-    //     caches.delete(key);
-    //   })
-    // })
-    // this.updates.checkForUpdate().then((a) => console.log(JSON.stringify(a, null, 2)));
     this.talksService.getFlyerForRoomAndDate(this.conferenceId, this.currentRoom, date).subscribe((result: Talk[]) => {
       this.talks = result;
     })
