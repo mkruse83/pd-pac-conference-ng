@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FlyerService } from 'src/app/services/flyer.service';
 import { RoomService } from 'src/app/services/room.service';
+import { TalksService } from 'src/app/services/talks.service';
+import Talk from 'src/app/entities/talk';
+import Room from 'src/app/entities/room';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-flyer',
@@ -12,9 +16,11 @@ export class FlyerComponent implements OnInit {
 
   rooms: Room[];
   talks: Talk[];
+  dates: Date[];
   conferenceId: string;
+  currentRoom: string;
 
-  constructor(private route: ActivatedRoute, private flyerService: FlyerService, private roomService: RoomService) { }
+  constructor(private updates: SwUpdate, private route: ActivatedRoute, private flyerService: FlyerService, private roomService: RoomService,  private talksService: TalksService) { }
 
   ngOnInit() {
     this.conferenceId = this.route.snapshot.params['conferenceId'];
@@ -23,13 +29,27 @@ export class FlyerComponent implements OnInit {
   }
 
   loadRooms() {
-    this.roomService.getRoomsForConference(this.conferenceId).subscribe((result: Room[]) => {
+    this.talksService.getRoomsForConference(this.conferenceId).subscribe((result: Room[]) => {
       this.rooms = result;
-    });;
+    });
   }
 
-  getFlyer(even: Event, nameInLocation: string) {
-    this.flyerService.getFlyerForConference(this.conferenceId, nameInLocation).subscribe((result: Talk[]) => {
+  getDates(event: Event, roomId: string) {
+    this.talksService.getDatesForRoom(this.conferenceId, roomId).subscribe((result: Date[]) => {
+      this.currentRoom = roomId;
+      this.dates = result;
+    });
+  }
+
+  getFlyer(event: Event, date: Date) {
+    // caches.keys().then((keys: string[]) => {
+    //   const apiKeys = keys.filter(key => key.includes('from-api'));
+    //   apiKeys.forEach(key => {
+    //     caches.delete(key);
+    //   })
+    // })
+    // this.updates.checkForUpdate().then((a) => console.log(JSON.stringify(a, null, 2)));
+    this.talksService.getFlyerForRoomAndDate(this.conferenceId, this.currentRoom, date).subscribe((result: Talk[]) => {
       this.talks = result;
     })
   }

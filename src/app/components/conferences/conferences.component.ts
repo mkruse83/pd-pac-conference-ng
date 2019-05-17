@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ConferencesService} from 'src/app/services/conferences.service';
 import {YearsService} from 'src/app/services/years.service';
+import Conferences from 'src/app/entities/conferences';
 
 @Component({
   selector: 'app-claim-list',

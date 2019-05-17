@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { YearsService } from 'src/app/services/years.service';
 import { TalksService } from 'src/app/services/talks.service';
 import MonthDisplay from '../../entities/monthDisplay';
+import Talks from 'src/app/entities/talks';
 
 @Component({
   selector: 'app-talks',
@@ -35,7 +36,7 @@ export class TalksComponent implements OnInit {
       this.months.push(new MonthDisplay(i, mom.format('MMMM')));
     }
   }
-
+ 
   loadTalks(event: Event) {
     const date = new Date(this.year);
     date.setMonth(this.month);

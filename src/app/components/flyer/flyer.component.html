@@ -1,5 +1,28 @@
 <div *ngIf="rooms" class="button-wrapper">
-  <span *ngFor="let room of rooms.rooms">
-      <button mat-button (click)="getFlyer($event, room.nameInLocation)">{{room.name}} | {{room.nameInLocation}}</button>  
+  <span *ngFor="let room of rooms">
+      <button mat-button (click)="getDates($event, room.nameInLocation)">{{room.name}} | {{room.nameInLocation}}</button>  
   </span>
+</div>
+<div *ngIf="dates" class="button-wrapper">
+  <span *ngFor="let date of dates">
+      <button mat-button (click)="getFlyer($event, date)">{{date | date}}</button>  
+  </span>
+</div>
+<div *ngIf="talks" class="button-wrapper">
+  <mat-card *ngFor="let talk of talks">
+    <mat-card-title>
+      {{talk.name}}
+    </mat-card-title>
+    <mat-card-content>
+      <div>
+        <span>Time: {{talk.from | date:'shortTime' }} - {{talk.to | date:'shortTime' }}</span>
+      </div>
+      <div>
+        <span>Speaker: {{talk.speaker.title}} {{talk.speaker.name}} ({{talk.speaker.company}})</span>
+      </div>
+      <div *ngFor="let topic of talk.topics">
+        <span>{{talk.topic}}&nbsp;</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
