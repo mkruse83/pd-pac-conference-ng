@@ -1,27 +1,55 @@
 <div *ngIf="rooms" class="button-wrapper">
   <span *ngFor="let room of rooms">
-      <button mat-button (click)="getDates($event, room.nameInLocation)">{{room.name}} | {{room.nameInLocation}}</button>  
+    <button mat-button (click)="getDates($event, room.nameInLocation)">{{room.name}} | {{room.nameInLocation}}</button>
   </span>
 </div>
 <div *ngIf="dates" class="button-wrapper">
   <span *ngFor="let date of dates">
-      <button mat-button (click)="getFlyer($event, date)">{{date | date}}</button>  
+    <button mat-button (click)="getFlyer($event, date)">{{date | date}}</button>
   </span>
 </div>
 <div *ngIf="talks" class="button-wrapper">
   <mat-card *ngFor="let talk of talks">
-    <mat-card-title>
+    <mat-card-title *ngIf="talk.name">
       {{talk.name}}
+    </mat-card-title>
+    <mat-card-title *ngIf="!talk.name">
+      Free slot
     </mat-card-title>
     <mat-card-content>
       <div>
         <span>Time: {{talk.from | date:'shortTime' }} - {{talk.to | date:'shortTime' }}</span>
       </div>
-      <div>
-        <span>Speaker: {{talk.speaker.title}} {{talk.speaker.name}} ({{talk.speaker.company}})</span>
+      <div *ngIf="!talk.isFree()">
+        <div>
+          <span>Speaker: {{talk.speaker.title}} {{talk.speaker.name}} ({{talk.speaker.company}})</span>
+        </div>
+        <div *ngFor="let topic of talk.topics">
+          <span>{{talk.topic}}&nbsp;</span>
+        </div>
       </div>
-      <div *ngFor="let topic of talk.topics">
-        <span>{{talk.topic}}&nbsp;</span>
+      <div *ngIf="talk.isFree() && loggedIn && !bookingTalk">
+        <button mat-button (click)="bookSlot($event, talk)">Book</button>
+      </div>
+      <div *ngIf="bookingTalk && (bookingTalk.from.getTime() === talk.from.getTime())">
+        <mat-form-field class="booking booking-name">
+          <input matInput placeholder="Talk Title" [(ngModel)]="bookingTalk.name" #ctrl="ngModel">
+        </mat-form-field>
+        <mat-form-field class="booking booking-speakertitle">
+          <input matInput placeholder="Speaker Title" [(ngModel)]="bookingTalk.speaker.title" #ctrl="ngModel">
+        </mat-form-field>
+        <mat-form-field class="booking booking-speakername">
+          <input matInput placeholder="Speaker Name" [(ngModel)]="bookingTalk.speaker.name" #ctrl="ngModel">
+        </mat-form-field>
+        <mat-form-field class="booking booking-speakercompany">
+          <input matInput placeholder="Speaker Company" [(ngModel)]="bookingTalk.speaker.company" #ctrl="ngModel">
+        </mat-form-field>
+        <mat-form-field class="booking booking-topics">
+          <input matInput placeholder="Topics" [(ngModel)]="bookingTalk.topics" #ctrl="ngModel">
+        </mat-form-field>
+        <div>
+          <button mat-button (click)="confirmBooking($event)">Confirm Booking</button>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ConferencesService} from 'src/app/services/conferences.service';
 import {YearsService} from 'src/app/services/years.service';
-import Conferences from 'src/app/entities/conferences';
+import { Conference } from 'src/app/entities/conference';
 
 @Component({
   selector: 'app-claim-list',
@@ -13,7 +13,7 @@ export class ConferencesComponent implements OnInit {
   year: Date;
   topic: string;
   years: Date[];
-  conferences: Conferences;
+  conferences: Conference[];
 
   constructor(
     private conferenceService: ConferencesService,
@@ -35,11 +35,7 @@ export class ConferencesComponent implements OnInit {
   }
 
   loadConferences(event: Event) {
-    this.conferenceService.getConferencesOfYearAndTopic(this.year, this.topic).subscribe((result: Conferences) => {
-      result.conferences.forEach(conf => {
-        conf.from = new Date(conf.from);
-        conf.to = new Date(conf.to);
-      });
+    this.conferenceService.getConferencesOfYearAndTopic(this.year, this.topic).subscribe((result: Conference[]) => {
       this.conferences = result;
     });
   }

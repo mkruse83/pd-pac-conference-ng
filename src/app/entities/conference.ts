@@ -10,7 +10,7 @@ export class Conference {
   location: ConfLocation;
 
   constructor(conf: any) {
-    this.id = conf.id;
+    this.id = conf.partkey + '|' + conf.sortkey;
     this.name = conf.name;
     this.from = new Date(conf.from);
     this.to = new Date(conf.to);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, Subject, ConnectableObservable, Subscriber } from 'rxjs';
-import { multicast, tap } from 'rxjs/operators';
+import { Observable, Subject, ConnectableObservable, Subscriber, ReplaySubject, BehaviorSubject } from 'rxjs';
+import { multicast, tap, shareReplay } from 'rxjs/operators';
 
 declare global {
   interface Window { onAmazonLoginReady: any; amazon: any; }
@@ -12,17 +12,18 @@ declare global {
 })
 export class AuthService {
 
-  private token: string;
+  public token: string;
   private profile: Profile;
-  public loggedIn: ConnectableObservable<boolean>;
+  public loggedIn: Observable<boolean>;
   private subscriber: Subscriber<boolean>;
 
   constructor() {
     const obs = new Observable<boolean>((observable) => {
       this.subscriber = observable;
     });
-    this.loggedIn = obs.pipe(multicast(() => new Subject())) as ConnectableObservable<boolean>;
-    this.loggedIn.connect();
+    const observ = obs.pipe(multicast(() => new BehaviorSubject(false))) as ConnectableObservable<boolean>;
+    observ.connect();
+    this.loggedIn = observ;
   }
 
   public init() {

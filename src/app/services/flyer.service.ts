@@ -10,8 +10,8 @@ export class FlyerService {
   constructor(private http: HttpClient) { }
 
   public getFlyerForConference(conferenceId: string, roomId : string) {
-    const uuid = conferenceId.split('|')[0];
+    const partkey = conferenceId.split('|')[0];
     const sortkey = conferenceId.split('|')[1];
-    return this.http.get(environment.apiBaseUrl + '/conference/' + uuid + '/' + escape(sortkey) + '/room/' + escape(roomId) + '/flyer');
+    return this.http.get(environment.apiBaseUrl + '/conference/' + escape(partkey) + '/' + escape(sortkey) + '/room/' + escape(roomId) + '/flyer');
   }
 }

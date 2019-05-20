@@ -10,8 +10,8 @@ export class RoomService {
   constructor(private http: HttpClient) { }
 
   public getRoomsForConference(conferenceId: string) {
-    const uuid = conferenceId.split('|')[0];
+    const partkey = conferenceId.split('|')[0];
     const sortkey = conferenceId.split('|')[1];
-    return this.http.get(environment.apiBaseUrl + '/conference/' + uuid + '/' + escape(sortkey) + '/rooms');
+    return this.http.get(environment.apiBaseUrl + '/conference/' + escape(partkey) + '/' + escape(sortkey) + '/rooms');
   }
 }

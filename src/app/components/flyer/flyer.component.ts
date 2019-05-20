@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FlyerService } from 'src/app/services/flyer.service';
-import { RoomService } from 'src/app/services/room.service';
 import { TalksService } from 'src/app/services/talks.service';
 import Talk from 'src/app/entities/talk';
 import Room from 'src/app/entities/room';
-import { SwUpdate } from '@angular/service-worker';
+import { AuthService } from 'src/app/services/auth.service';
+import Slot from 'src/app/entities/slot';
+import Speaker from 'src/app/entities/speaker';
 
 @Component({
   selector: 'app-flyer',
@@ -15,17 +15,22 @@ import { SwUpdate } from '@angular/service-worker';
 export class FlyerComponent implements OnInit {
 
   rooms: Room[];
-  talks: Talk[];
+  talks: (Talk | Slot)[];
   dates: Date[];
   conferenceId: string;
   currentRoom: string;
+  loggedIn: boolean;
+  bookingTalk: Talk;
 
-  constructor(private updates: SwUpdate, private route: ActivatedRoute, private flyerService: FlyerService, private roomService: RoomService,  private talksService: TalksService) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService, private talksService: TalksService) { }
 
   ngOnInit() {
     this.conferenceId = this.route.snapshot.params['conferenceId'];
-    console.log("INFO: conference id ", this.conferenceId);
     this.loadRooms();
+    this.authService.loggedIn.subscribe((loggedIn) => {
+      this.loggedIn = loggedIn;
+    });
+    this.loggedIn = true;
   }
 
   loadRooms() {
@@ -43,9 +48,28 @@ export class FlyerComponent implements OnInit {
   }
 
   getFlyer(event: Event, date: Date) {
-    this.talksService.getFlyerForRoomAndDate(this.conferenceId, this.currentRoom, date).subscribe((result: Talk[]) => {
+    this.talksService.getFlyerForRoomAndDate(this.conferenceId, this.currentRoom, date).subscribe((result: (Talk | Slot)[]) => {
       this.talks = result;
     })
+  }
+
+  bookSlot(event: Event, talk: Talk) {
+    this.bookingTalk = new Talk({
+      ...talk,
+      speaker: new Speaker({})
+    });
+  }
+
+  confirmBooking(event: Event) {
+    const topics = this.bookingTalk.topics as any;
+    this.talksService.confirmBooking(this.conferenceId, new Talk({
+      ...this.bookingTalk,
+      topics: topics.split(' ')
+    })).subscribe((result: any) => {
+      this.talks = null;
+      this.bookingTalk = null;
+      this.loadRooms();
+    });
   }
 
 }
