@@ -66,6 +66,10 @@ export class TalksService {
   }
 
   public confirmBooking(conferenceId: string, talk: Talk) {
+    if (!this.auth.token) {
+      throw new Error("cannot invoke without auth");
+    }
+    
     const partkey = conferenceId.split('|')[0];
     const sortkey = conferenceId.split('|')[1];
     const options = {

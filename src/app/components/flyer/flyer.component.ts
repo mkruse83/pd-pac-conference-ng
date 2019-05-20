@@ -30,7 +30,6 @@ export class FlyerComponent implements OnInit {
     this.authService.loggedIn.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
     });
-    this.loggedIn = true;
   }
 
   loadRooms() {
