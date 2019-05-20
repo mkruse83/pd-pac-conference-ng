@@ -15,10 +15,14 @@ export class TalksService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  private getTalksForConference(conferenceId: string): Observable<(Talk | Slot)[]> {
+  public getUrl(conferenceId: string) : string {
     const partkey = conferenceId.split('|')[0];
     const sortkey = conferenceId.split('|')[1];
-    return this.http.get(environment.apiBaseUrl + '/conference/' + escape(partkey) + '/' + escape(sortkey) + '/talks').pipe(
+    return environment.apiBaseUrl + '/conference/' + escape(partkey) + '/' + escape(sortkey) + '/talks';
+  }
+
+  private getTalksForConference(conferenceId: string): Observable<(Talk | Slot)[]> {
+    return this.http.get(this.getUrl(conferenceId)).pipe(
       map((obj: any) => {
         const talks = obj.talks;
         return talks.map(talk => {
@@ -69,7 +73,7 @@ export class TalksService {
     if (!this.auth.token) {
       throw new Error("cannot invoke without auth");
     }
-    
+
     const partkey = conferenceId.split('|')[0];
     const sortkey = conferenceId.split('|')[1];
     const options = {

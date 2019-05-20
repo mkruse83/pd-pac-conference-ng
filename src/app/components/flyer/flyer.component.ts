@@ -6,6 +6,7 @@ import Room from 'src/app/entities/room';
 import { AuthService } from 'src/app/services/auth.service';
 import Slot from 'src/app/entities/slot';
 import Speaker from 'src/app/entities/speaker';
+import { CacheService } from 'src/app/services/cache.service';
 
 @Component({
   selector: 'app-flyer',
@@ -22,7 +23,7 @@ export class FlyerComponent implements OnInit {
   loggedIn: boolean;
   bookingTalk: Talk;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private talksService: TalksService) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService, private talksService: TalksService, private cacheService: CacheService) { }
 
   ngOnInit() {
     this.conferenceId = this.route.snapshot.params['conferenceId'];
@@ -67,7 +68,9 @@ export class FlyerComponent implements OnInit {
     })).subscribe((result: any) => {
       this.talks = null;
       this.bookingTalk = null;
-      this.loadRooms();
+      this.cacheService.clearCache(this.talksService.getUrl(this.conferenceId)).then(() => {
+        this.loadRooms();
+      })
     });
   }
 
