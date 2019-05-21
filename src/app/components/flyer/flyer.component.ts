@@ -23,6 +23,9 @@ export class FlyerComponent implements OnInit {
   loggedIn: boolean;
   bookingTalk: Talk;
 
+  activeRoomId: string;
+  activeDate: Date;
+
   constructor(private route: ActivatedRoute, private authService: AuthService, private talksService: TalksService, private cacheService: CacheService) { }
 
   ngOnInit() {
@@ -42,6 +45,7 @@ export class FlyerComponent implements OnInit {
   getDates(event: Event, roomId: string) {
     this.talks = null;
     this.talksService.getDatesForRoom(this.conferenceId, roomId).subscribe((result: Date[]) => {
+      this.activeRoomId = roomId;
       this.currentRoom = roomId;
       this.dates = result;
     });
@@ -49,6 +53,7 @@ export class FlyerComponent implements OnInit {
 
   getFlyer(event: Event, date: Date) {
     this.talksService.getFlyerForRoomAndDate(this.conferenceId, this.currentRoom, date).subscribe((result: (Talk | Slot)[]) => {
+      this.activeDate = date;
       this.talks = result;
     })
   }
@@ -68,7 +73,16 @@ export class FlyerComponent implements OnInit {
     })).subscribe((result: any) => {
       this.talks = null;
       this.bookingTalk = null;
-      this.cacheService.clearCache(this.talksService.getUrl(this.conferenceId)).then(() => {
+      this.cacheService.clearCache(this.talksService.getTalksUrl(this.conferenceId)).then(() => {
+        this.loadRooms();
+      })
+    });
+  }
+
+  deleteTalk(event: Event, talk: Talk) {
+    this.talksService.deleteTalk(this.conferenceId, talk).subscribe(() => {
+      this.talks = null;
+      this.cacheService.clearCache(this.talksService.getTalksUrl(this.conferenceId)).then(() => {
         this.loadRooms();
       })
     });

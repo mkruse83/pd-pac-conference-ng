@@ -1,11 +1,15 @@
 <div *ngIf="rooms" class="button-wrapper">
   <span *ngFor="let room of rooms">
-    <button mat-button (click)="getDates($event, room.nameInLocation)">{{room.name}} | {{room.nameInLocation}}</button>
+    <button mat-button [ngClass]="{'mat-accent': activeRoomId === room.nameInLocation}"
+      (click)="getDates($event, room.nameInLocation)">
+      {{room.name}} | {{room.nameInLocation}}
+    </button>
   </span>
 </div>
 <div *ngIf="dates" class="button-wrapper">
   <span *ngFor="let date of dates">
-    <button mat-button (click)="getFlyer($event, date)">{{date | date}}</button>
+    <button mat-button [ngClass]="{'mat-accent': activeDate === date}" (click)="getFlyer($event, date)">{{date | date}}
+    </button>
   </span>
 </div>
 <div *ngIf="talks" class="button-wrapper">
@@ -29,7 +33,10 @@
         </div>
       </div>
       <div *ngIf="talk.isFree() && loggedIn && !bookingTalk">
-        <button mat-button (click)="bookSlot($event, talk)">Book</button>
+        <button mat-button color="primary" (click)="bookSlot($event, talk)">Book</button>
+      </div>
+      <div *ngIf="!talk.isFree() && loggedIn">
+        <button mat-button color="warn" (click)="deleteTalk($event, talk)">Delete</button>
       </div>
       <div *ngIf="bookingTalk && (bookingTalk.from.getTime() === talk.from.getTime())">
         <mat-form-field class="booking booking-name">

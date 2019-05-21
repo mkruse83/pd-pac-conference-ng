@@ -15,14 +15,20 @@ export class TalksService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  public getUrl(conferenceId: string) : string {
+  public getTalksUrl(conferenceId: string): string {
     const partkey = conferenceId.split('|')[0];
     const sortkey = conferenceId.split('|')[1];
     return environment.apiBaseUrl + '/conference/' + escape(partkey) + '/' + escape(sortkey) + '/talks';
   }
 
+  public getTalkUrl(conferenceId: string): string {
+    const partkey = conferenceId.split('|')[0];
+    const sortkey = conferenceId.split('|')[1];
+    return environment.apiBaseUrl + '/admin/conference/' + escape(partkey) + '/' + escape(sortkey) + '/talk';
+  }
+
   private getTalksForConference(conferenceId: string): Observable<(Talk | Slot)[]> {
-    return this.http.get(this.getUrl(conferenceId)).pipe(
+    return this.http.get(this.getTalksUrl(conferenceId)).pipe(
       map((obj: any) => {
         const talks = obj.talks;
         return talks.map(talk => {
@@ -74,8 +80,6 @@ export class TalksService {
       throw new Error("cannot invoke without auth");
     }
 
-    const partkey = conferenceId.split('|')[0];
-    const sortkey = conferenceId.split('|')[1];
     const options = {
       headers: {
         'X-Auth': this.auth.token
@@ -86,6 +90,16 @@ export class TalksService {
       ...talk
     };
     delete body.id;
-    return this.http.post(environment.apiBaseUrl + '/admin/conference/' + escape(partkey) + '/' + escape(sortkey) + '/talk', body, options);
+    return this.http.post(this.getTalkUrl(conferenceId), body, options);
+  }
+
+  public deleteTalk(conferenceId: string, talk: Talk) {
+    const options = {
+      headers: {
+        'X-Auth': this.auth.token
+      },
+      body: talk
+    };
+    return this.http.delete(this.getTalkUrl(conferenceId), options);
   }
 }
