@@ -11,11 +11,12 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
-import { TalksComponent } from './components/talks/talks.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoggedinComponent } from './components/loggedin/loggedin.component';
 import { FlyerComponent } from './components/flyer/flyer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TopicsComponent } from './components/topics/topics.component';
+import { TalksComponent } from './components/talks/talks.component';
 
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
@@ -25,10 +26,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ConferencesComponent,
     MenuComponent,
     FooterComponent,
-    TalksComponent,
     WelcomeComponent,
     LoggedinComponent,
     FlyerComponent,
+    TopicsComponent,
+    TalksComponent,
   ],
   imports: [
     BrowserModule,

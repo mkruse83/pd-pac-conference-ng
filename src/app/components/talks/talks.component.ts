@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
-import { YearsService } from 'src/app/services/years.service';
-import { TalksService } from 'src/app/services/talks.service';
-import MonthDisplay from '../../entities/monthDisplay';
-import Talks from 'src/app/entities/talks';
+import { ActivatedRoute } from '@angular/router';
+import Talk from 'src/app/entities/talk';
+import { TopicsService } from 'src/app/services/topics.service';
 
 @Component({
   selector: 'app-talks',
@@ -12,36 +10,17 @@ import Talks from 'src/app/entities/talks';
 })
 export class TalksComponent implements OnInit {
 
-  year: Date;
-  years: Date[];
-  month: number;
-  months: MonthDisplay[];
-  talks: Talks;
+  talks: Talk[];
+  yearAndMonth: string;
 
-  constructor(
-    private talksService: TalksService,
-    private yearsService: YearsService,
-  ) { }
+  constructor(private route: ActivatedRoute, private topicsService: TopicsService) { 
+  }
 
   ngOnInit() {
-    this.years = [];
-    this.yearsService.getYears().subscribe((year) => {
-      this.years.push(year);
-    });
-    this.months = [];
-    for (let i = 0; i <= 11; i++) {
-      const date = new Date();
-      date.setMonth(i);
-      const mom = moment(date);
-      this.months.push(new MonthDisplay(i, mom.format('MMMM')));
-    }
-  }
- 
-  loadTalks(event: Event) {
-    const date = new Date(this.year);
-    date.setMonth(this.month);
-    this.talksService.getTalks(date).subscribe((result: Talks) => {
-      this.talks = result;
-    });
+    const topic = this.route.snapshot.params['topic'];
+    this.yearAndMonth = this.route.snapshot.params['yearAndMonth'];
+    this.topicsService.getTalksToTopic(this.yearAndMonth, topic).subscribe((talks: Talk[]) => {
+      this.talks = talks;
+    })
   }
 }

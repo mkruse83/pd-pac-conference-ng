@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Observable, Subject, ConnectableObservable, Subscriber, ReplaySubject, BehaviorSubject } from 'rxjs';
-import { multicast, tap, shareReplay } from 'rxjs/operators';
+import { Observable, ConnectableObservable, Subscriber, BehaviorSubject } from 'rxjs';
+import { multicast } from 'rxjs/operators';
 
 declare global {
   interface Window { onAmazonLoginReady: any; amazon: any; }
@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   public retrieveProfile(): Observable<Profile> {
-    const result = new Observable<Profile>((observer) => {
+    return new Observable<Profile>((observer) => {
       if (this.profile) {
         observer.next(this.profile);
         observer.complete();
@@ -66,6 +66,5 @@ export class AuthService {
       });
       return { unsubscribe() { } };
     });
-    return result;
   }
 }

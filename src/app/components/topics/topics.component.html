@@ -1,0 +1,24 @@
+<mat-form-field>
+  <mat-label>Year and month</mat-label>
+  <mat-select [(value)]="yearAndMonth">
+    <mat-option *ngFor="let yam of yearsAndMonths" [value]="yam">
+      {{yam}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div class="form__field">
+  <button mat-button (click)="loadTopics()">Go</button>
+</div>
+
+<mat-card>
+  <mat-card-title>
+    Topics
+  </mat-card-title>
+  <mat-card-content>
+    <div *ngFor="let topic of topics">
+      <button mat-button routerLink="/topic/{{yearAndMonth}}/{{topic[0]}}">
+        <span>{{topic[0]}} ({{topic[1]}})</span>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

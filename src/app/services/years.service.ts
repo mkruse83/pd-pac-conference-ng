@@ -20,7 +20,7 @@ export class YearsService {
    * (I did not use Observable.of so I could get to know Observables better)
    */
   public getYears(): Observable<Date> {
-    const result = new Observable<Date>((observer) => {
+    return new Observable<Date>((observer) => {
 
       if (!this.years || this.years.length === 0) {
         observer.error('No years defined');
@@ -35,6 +35,5 @@ export class YearsService {
       // When the consumer unsubscribes, clean up data ready for next subscription.
       return { unsubscribe() { } };
     });
-    return result;
   }
 }

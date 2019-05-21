@@ -29,7 +29,7 @@
           <span>Speaker: {{talk.speaker.title}} {{talk.speaker.name}} ({{talk.speaker.company}})</span>
         </div>
         <div *ngFor="let topic of talk.topics">
-          <span>{{talk.topic}}&nbsp;</span>
+          |<span *ngFor="let topic of talk.topics">&nbsp;{{topic}}&nbsp;|</span>
         </div>
       </div>
       <div *ngIf="talk.isFree() && loggedIn && !bookingTalk">

@@ -6,7 +6,7 @@ class Talk extends Slot{
   speaker: Speaker;
 
   constructor(talk: any) {
-    super(talk)
+    super(talk);
     this.topics = talk.topics;
     if (talk.speaker) {
       this.speaker = new Speaker(talk.speaker);
