@@ -27,7 +27,7 @@
   "dataGroups": [
     {
       "name": "from-api",
-      "urls": ["/conferences", "/conference/**"],
+      "urls": ["/conferences", "/conference/**", "/admin/favorites"],
       "cacheConfig": {
         "strategy": "performance",
         "maxSize": 50,

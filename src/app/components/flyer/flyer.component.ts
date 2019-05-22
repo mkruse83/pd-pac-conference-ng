@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import Slot from 'src/app/entities/slot';
 import Speaker from 'src/app/entities/speaker';
 import { CacheService } from 'src/app/services/cache.service';
+import { FavoritesService } from 'src/app/services/favorites.service';
+import Favorites from 'src/app/entities/favorites';
 
 @Component({
   selector: 'app-flyer',
@@ -22,17 +24,25 @@ export class FlyerComponent implements OnInit {
   currentRoom: string;
   loggedIn: boolean;
   bookingTalk: Talk;
+  favorites: Favorites;
 
   activeRoomId: string;
   activeDate: Date;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private talksService: TalksService, private cacheService: CacheService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private talksService: TalksService,
+    private cacheService: CacheService,
+    private favoritesService: FavoritesService,
+  ) { }
 
   ngOnInit() {
     this.conferenceId = this.route.snapshot.params['conferenceId'];
     this.loadRooms();
     this.authService.loggedIn.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
+      this.loadFavorites();
     });
   }
 
@@ -40,6 +50,16 @@ export class FlyerComponent implements OnInit {
     this.talksService.getRoomsForConference(this.conferenceId).subscribe((result: Room[]) => {
       this.rooms = result;
     });
+  }
+
+  loadFavorites() {
+    if (this.loggedIn) {
+      this.favoritesService.getFavorites().subscribe((result: Favorites) => {
+        this.favorites = result;
+      });
+    } else {
+      this.favorites = new Favorites([]);
+    }
   }
 
   getDates(event: Event, roomId: string) {
@@ -65,12 +85,12 @@ export class FlyerComponent implements OnInit {
     });
   }
 
-  confirmBooking(event: Event) {
+  confirmBooking() {
     const topics = this.bookingTalk.topics as any;
-    this.talksService.confirmBooking(this.conferenceId, new Talk({
+    this.talksService.addTalkToConferce(this.conferenceId, new Talk({
       ...this.bookingTalk,
       topics: topics.split(' ')
-    })).subscribe((result: any) => {
+    })).subscribe(() => {
       this.talks = null;
       this.bookingTalk = null;
       this.cacheService.clearCache(this.talksService.getTalksUrl(this.conferenceId)).then(() => {
@@ -88,4 +108,16 @@ export class FlyerComponent implements OnInit {
     });
   }
 
+  toggleFavoriteTalk(event: Event, talk: Talk) {
+    this.favoritesService.toggleFavoriteTalk(this.conferenceId, talk).subscribe(() => {
+      this.talks = null;
+      this.cacheService.clearCache(this.favoritesService.getFavoritesUrl()).then(() => {
+        this.loadFavorites();
+      })
+    });
+  }
+
+  isFavorite(talk: Talk) {
+    return this.favorites.isFavorite(this.conferenceId, talk)
+  }
 }

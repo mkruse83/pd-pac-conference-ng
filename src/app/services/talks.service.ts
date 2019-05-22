@@ -75,7 +75,7 @@ export class TalksService {
     return this.http.get(environment.apiBaseUrl + '/talks/' + year.getFullYear() + '/' + year.getMonth());
   }
 
-  public confirmBooking(conferenceId: string, talk: Talk) {
+  public addTalkToConferce(conferenceId: string, talk: Talk) {
     if (!this.auth.token) {
       throw new Error("cannot invoke without auth");
     }

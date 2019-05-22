@@ -11,7 +11,6 @@ import { Conference } from 'src/app/entities/conference';
 export class ConferencesComponent implements OnInit {
 
   year: Date;
-  topic: string;
   years: Date[];
   conferences: Conference[];
 
@@ -22,7 +21,6 @@ export class ConferencesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topic = '';
     this.years = [];
     this.yearsService.getYears().subscribe((year) => {
       this.years.push(year);
@@ -34,8 +32,8 @@ export class ConferencesComponent implements OnInit {
 
   }
 
-  loadConferences(event: Event) {
-    this.conferenceService.getConferencesOfYearAndTopic(this.year, this.topic).subscribe((result: Conference[]) => {
+  loadConferences() {
+    this.conferenceService.getConferencesOfYear(this.year).subscribe((result: Conference[]) => {
       this.conferences = result;
     });
   }

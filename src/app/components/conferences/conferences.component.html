@@ -11,23 +11,12 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </mat-card-content>
-</mat-card>
-<mat-card>
-  <mat-card-title>
-    Search for conferences by topic
-  </mat-card-title>
-  <mat-card-content>
-    <mat-form-field>
-      <mat-label>Topic</mat-label>
-      <input matInput placeholder="Topic" [(ngModel)]="topic" #ctrl="ngModel">
-    </mat-form-field>
     <div class="form__field">
       <button mat-button (click)="loadConferences($event)">Go</button>
     </div>
   </mat-card-content>
 </mat-card>
-<div *ngIf="conferences" >
+<div *ngIf="conferences">
   <mat-card *ngFor="let conference of conferences">
     <mat-card-title>
       {{conference.name}}

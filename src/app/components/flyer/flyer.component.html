@@ -37,6 +37,13 @@
       </div>
       <div *ngIf="!talk.isFree() && loggedIn">
         <button mat-button color="warn" (click)="deleteTalk($event, talk)">Delete</button>
+        <button *ngIf="isFavorite(talk)" mat-icon-button color="warn" (click)="toggleFavoriteTalk($event, talk)">
+          <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+        </button>
+        <button *ngIf="!isFavorite(talk)" mat-icon-button style="color: gray"
+          (click)="toggleFavoriteTalk($event, talk)">
+          <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+        </button>
       </div>
       <div *ngIf="bookingTalk && (bookingTalk.from.getTime() === talk.from.getTime())">
         <mat-form-field class="booking booking-name">

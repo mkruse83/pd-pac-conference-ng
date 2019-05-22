@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FlyerService } from './flyer.service';
+import { FavoritesService } from './favorites.service';
 
-describe('FlyerService', () => {
+describe('FavoritesService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FlyerService = TestBed.get(FlyerService);
+    const service: FavoritesService = TestBed.get(FavoritesService);
     expect(service).toBeTruthy();
   });
 });
