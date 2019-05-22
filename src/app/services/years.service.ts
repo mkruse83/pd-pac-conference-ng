@@ -9,8 +9,6 @@ export class YearsService {
   private years = [
     new Date(Date.UTC(2020, 0, 1, 0, 0, 0, 0)),
     new Date(Date.UTC(2019, 0, 1, 0, 0, 0, 0)),
-    new Date(Date.UTC(2018, 0, 1, 0, 0, 0, 0)),
-    new Date(Date.UTC(2017, 0, 1, 0, 0, 0, 0)),
   ];
 
   constructor() { }
