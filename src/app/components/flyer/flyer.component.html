@@ -28,7 +28,7 @@
         <div>
           <span>Speaker: {{talk.speaker.title}} {{talk.speaker.name}} ({{talk.speaker.company}})</span>
         </div>
-        <div *ngFor="let topic of talk.topics">
+        <div>
           |<span *ngFor="let topic of talk.topics">&nbsp;{{topic}}&nbsp;|</span>
         </div>
       </div>
