@@ -71,6 +71,14 @@ export class TalksService {
     );
   }
 
+  public getTalksByConferenceId(conferenceId: string): Observable<Talk[]> {
+    return this.getTalksForConference(conferenceId).pipe(
+      flatMap(talks => talks),
+      filter((talk: any) => !talk.isFree()),
+      toArray()
+    );
+  }
+
   public getTalks(year: Date) {
     return this.http.get(environment.apiBaseUrl + '/talks/' + year.getFullYear() + '/' + year.getMonth());
   }

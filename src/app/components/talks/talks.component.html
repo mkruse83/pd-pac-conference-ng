@@ -1,6 +1,13 @@
-<button mat-button routerLink="/topics/{{yearAndMonth}}">
-  <span>Back</span>
-</button>
+<div *ngIf="isConference">
+  <button mat-button routerLink="/conferences">
+    <span>Back</span>
+  </button>
+</div>
+<div *ngIf="!isConference">
+  <button mat-button routerLink="/topics/{{yearAndMonth}}">
+    <span>Back</span>
+  </button>
+</div>
 
 <div *ngIf="talks">
   <mat-card *ngFor="let talk of talks; let i = index">
@@ -8,8 +15,11 @@
       {{i + 1}}. {{talk.name}}
     </mat-card-title>
     <mat-card-content>
-      <div>
+      <div *ngIf="!isConference">
         <span>Time: {{talk.from | date:'shortTime' }} - {{talk.to | date:'shortTime' }}</span>
+      </div>
+      <div *ngIf="isConference">
+        <span>Time: {{talk.from | date:'short' }} - {{talk.to | date:'short' }}</span>
       </div>
       <div>
         <span>Speaker: {{talk.speaker.title}} {{talk.speaker.name}} ({{talk.speaker.company}})</span>

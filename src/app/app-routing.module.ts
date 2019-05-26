@@ -13,7 +13,8 @@ const routes: Routes = [
   {path: 'flyer/:conferenceId', component: FlyerComponent},
   {path: 'topics', component: TopicsComponent},
   {path: 'topics/:yearAndMonth', component: TopicsComponent},
-  {path: 'topic/:yearAndMonth/:topic', component: TalksComponent},
+  {path: 'talks/:type/:yearAndMonth/:topic', component: TalksComponent},
+  {path: 'talks/:type/:conferenceId', component: TalksComponent},
   {path: 'loggedin', component: LoggedinComponent},
 ];
 

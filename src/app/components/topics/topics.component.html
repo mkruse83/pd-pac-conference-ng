@@ -16,7 +16,7 @@
   </mat-card-title>
   <mat-card-content>
     <div *ngFor="let topic of topics">
-      <button mat-button routerLink="/topic/{{yearAndMonth}}/{{topic[0]}}">
+      <button mat-button routerLink="/talks/topic/{{yearAndMonth}}/{{topic[0]}}">
         <span>{{topic[0]}} ({{topic[1]}})</span>
       </button>
     </div>
