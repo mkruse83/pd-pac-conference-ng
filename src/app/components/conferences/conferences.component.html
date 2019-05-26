@@ -19,7 +19,7 @@
 <div *ngIf="conferences">
   <mat-card *ngFor="let conference of conferences">
     <mat-card-title>
-      {{conference.name}}
+      {{conference.name}} ({{conference.location.name}})
     </mat-card-title>
     <mat-card-content>
       <div>
